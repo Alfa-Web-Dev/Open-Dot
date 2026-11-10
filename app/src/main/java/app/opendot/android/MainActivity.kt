@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -323,7 +324,7 @@ private fun ChatsScreen(
         Text("Conversations", fontSize = 26.sp, fontWeight = FontWeight.Bold)
         Spacer(Modifier.height(10.dp))
         if (agents.isNotEmpty()) {
-            LazyColumn(Modifier.height(58.dp), horizontalArrangement = Arrangement.spacedBy(7.dp)) {
+            LazyRow(Modifier.height(58.dp), horizontalArrangement = Arrangement.spacedBy(7.dp)) {
                 items(agents, key = { it.id }) { agent ->
                     Surface(color = if (activeAgent?.id == agent.id) Accent.copy(alpha = 0.25f) else Panel, shape = RoundedCornerShape(12.dp), modifier = Modifier.clickable { onSelect(agent) }) {
                         Text(agent.name, modifier = Modifier.padding(horizontal = 12.dp, vertical = 9.dp), fontSize = 11.sp)
