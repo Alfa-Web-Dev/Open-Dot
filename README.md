@@ -1,36 +1,48 @@
 # OpenDot Android
 
-An independent, community-built Android adaptation inspired by the open-source OpenDot project.
+An independent Android adaptation of the open-source OpenDot project. It is not an official OpenDot product and is not affiliated with the upstream maintainers.
 
-> **Project status:** Initial setup. Features, architecture, and release readiness are still under development. This project is not an official OpenDot product and is not affiliated with the upstream maintainers.
+## Current implementation
 
-## Goals
+- Native Kotlin + Jetpack Compose Android application
+- Local SQLite storage for custom Dots and conversation history
+- Create agents with a name, role description, and custom system instructions
+- Chat with an agent through an OpenAI-compatible `/chat/completions` endpoint
+- Provider URL, model name, and API key configuration
+- API key encryption using Android Keystore (AES-GCM)
+- GitHub Actions debug APK build workflow
 
-- Native Android application built with Kotlin and Jetpack Compose
-- Local-first data and settings, with optional cloud AI providers
-- Separate Dots with their own instructions, configuration, memory, and conversations
-- Permission-aware tools and explicit approval for sensitive actions
-- English, Hindi, and Urdu interface support
-- Automated Android builds with GitHub Actions
+## Current limitations
 
-## Planned architecture
+This is an early port, not feature parity with desktop OpenDot. The following upstream capabilities are not yet implemented on Android:
 
-Clean Architecture with MVVM, Hilt, Room, DataStore, Ktor, and WorkManager. Local model support will be evaluated through an Android-compatible llama.cpp integration.
+- Pi AgentSession runtime replacement / native agent tool loop
+- llama.cpp Android inference integration and model download management
+- Streaming responses, tool execution, MCP connections and approvals
+- Long-term semantic memory and memory controls
+- Dot-to-Dot links, SuperDot orchestration and Organisation projects
+- Scheduled/background watchers, integrations, file tools and voice
+- Full localization (English, Hindi, Urdu), accessibility and release hardening
+
+The current chat client supports compatible chat-completion APIs only. A cloud provider may require a paid API key; using the app itself is free, but provider usage terms and costs still apply. A local endpoint can be used when a compatible server is running on the Android device at localhost. Native on-device inference is planned separately.
 
 ## Build
 
-The Android Gradle project and CI workflow will be added in upcoming commits. Until then, there is no installable APK in this repository.
+GitHub Actions builds a debug APK on pushes to `main` and pull requests. Open the repository's **Actions** tab and download the `opendot-android-debug` artifact from a successful run.
 
-## Upstream project and attribution
+## Architecture direction
 
-This project is an independent adaptation. The upstream OpenDot repository is:
+The desktop app uses Electron, Node.js and the pi agent harness. Those components cannot simply be embedded in a native Android APK. This project ports product concepts and behavior to Kotlin/Android, with Android-native storage, secret protection, networking, and lifecycle handling.
 
-https://github.com/athulsreekumar/opendot
+## Upstream attribution and license
 
-The upstream project is licensed under the MIT License. Any upstream code reused in this adaptation will retain its applicable copyright and license notices. This repository will include its own license and attribution files as implementation proceeds.
+Upstream project: https://github.com/athulsreekumar/opendot
+
+The upstream OpenDot project is MIT licensed. Its license notice is preserved in this repository's `LICENSE`. Any reused upstream source must retain applicable copyright and license notices. This repository is an independent adaptation.
 
 ## Security
 
-- Do not commit API keys, signing keys, passwords, or other secrets.
-- Use GitHub Actions secrets for release signing configuration.
-- Review permissions and privacy implications before enabling tools or integrations.
+- Never commit API keys, passwords, or signing keys.
+- Provider keys entered in the app are encrypted with Android Keystore.
+- HTTPS is required for remote endpoints. Cleartext HTTP is restricted to loopback localhost for local development/model servers.
+- Review permissions and privacy implications before adding tools or integrations.
