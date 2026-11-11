@@ -243,8 +243,7 @@ private fun HomeScreen(agentCount: Int, onDots: () -> Unit, onChats: () -> Unit,
             Column(Modifier.fillMaxWidth().background(Brush.linearGradient(listOf(Color(0xFF30264E), Color(0xFF172D32)))).padding(20.dp)) {
                 Text("MAKE AI YOUR OWN", color = Color(0xFFC8BEFF), fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.sp)
                 Spacer(Modifier.height(10.dp))
-                Text("Meet your next
-AI teammate.", fontSize = 26.sp, lineHeight = 31.sp, fontWeight = FontWeight.Bold)
+                Text("Meet your next\nAI teammate.", fontSize = 26.sp, lineHeight = 31.sp, fontWeight = FontWeight.Bold)
                 Spacer(Modifier.height(8.dp))
                 Text("Create a Dot with its own role, personality and instructions.", color = Color(0xFFD0D0DA), fontSize = 12.sp)
                 Spacer(Modifier.height(15.dp))
